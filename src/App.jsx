@@ -4,8 +4,7 @@ import Header from "./components/Todo/Header";
 import { useTodos } from "./context/TaskContextProvider";
 
 export default function App() {
-  const { todos, deleteTask } = useTodos();
-  console.log(todos);
+  const { todos } = useTodos();
 
   return (
     <>
@@ -25,7 +24,7 @@ export default function App() {
             <ul>
               {todos.map((todo) => (
                 <li key={todo.id}>
-                  <Task todo={todo}>{todo.task}</Task>
+                  <Task todo={todo} />
                 </li>
               ))}
             </ul>

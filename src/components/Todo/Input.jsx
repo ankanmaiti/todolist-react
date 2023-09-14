@@ -1,8 +1,8 @@
-import { TfiWrite } from "react-icons/tfi";
-import { AiOutlinePlus } from "react-icons/ai";
 import Button from "./Button";
-import { useTodos } from "../../context/TaskContextProvider";
+import { useTodos } from "/src/context/TaskContextProvider";
 import { useRef } from "react";
+import ClipboardIcon from "./Icons/ClipboardIcon";
+import PlusIcon from "./Icons/PlusIcon";
 
 export default function TodoInput() {
   const inputRef = useRef(null);
@@ -23,7 +23,7 @@ export default function TodoInput() {
       >
         {/* clipboard icon */}
         <Button className="text-indigo-500">
-          <TfiWrite />
+          <ClipboardIcon />
         </Button>
 
         {/* input field */}
@@ -31,14 +31,14 @@ export default function TodoInput() {
           <input
             ref={inputRef}
             type="text"
-            className="w-full border-none bg-transparent px-2 lowercase outline-none"
+            className="w-full border-none bg-transparent px-2 lowercase text-indigo-500 outline-none"
             placeholder="Enter your next task"
           />
         </div>
 
         {/* add icon */}
         <Button type="submit" className="text-indigo-500">
-          <AiOutlinePlus />
+          <PlusIcon />
         </Button>
       </form>
     </>

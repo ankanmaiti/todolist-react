@@ -1,49 +1,39 @@
 import Button from "./Button";
-import { LiaCheckSolid, LiaCheckDoubleSolid } from "react-icons/lia";
-import { AiOutlineDelete, AiFillDelete } from "react-icons/ai";
-import { useTodos } from "../../context/TaskContextProvider";
+import { useTodos } from "/src/context/TaskContextProvider";
+import { twMerge } from "tailwind-merge";
+import TickIcon from "./Icons/TickIcon";
+import DeleteIcon from "./Icons/DeleteIcon";
 
-export default function Task({ children, todo }) {
+export default function Task({ todo }) {
   const { deleteTask, completeTask } = useTodos();
 
   return (
     <>
       <div
-        className={`${
-          todo.isPending ? "" : "bg-green-200"
-        }  group/task flex border-b border-slate-300/70 py-2 hover:bg-slate-200`}
+        className={twMerge(
+          "flex border-b py-2 hover:bg-slate-200",
+          todo.isPending || "bg-green-200",
+          todo.isPending || "hover:bg-green-300",
+        )}
       >
-        {/* todo check */}
-
+        {/* todo check button */}
         <Button onClick={() => completeTask(todo.id)}>
-          {/* single tick on pending task */}
-          <LiaCheckSolid
-            className={`${
-              todo.isPending ? "block" : "hidden"
-            } text-2xl text-yellow-700 opacity-60 group-hover/task:text-blue-700 group-hover/task:opacity-100`}
-          />
-
-          {/* double tick on completed task */}
-          <LiaCheckDoubleSolid
-            className={`${
-              todo.isPending ? "hidden" : "block"
-            } text-2xl text-green-600`}
-          />
+          <TickIcon isPending={todo.isPending} />
         </Button>
 
         {/* task */}
         <p
-          className={`${
-            todo.isPending ? "" : "line-through"
-          } w-10/12 text-lg lowercase text-indigo-500`}
+          className={twMerge(
+            `w-10/12 text-lg lowercase text-indigo-500`,
+            todo.isPending || "line-through",
+          )}
         >
-          {children}
+          {todo.task}
         </p>
 
-        {/* delete todo */}
-        <Button className={"group/delete"} onClick={() => deleteTask(todo.id)}>
-          <AiOutlineDelete className=" text-xl text-red-500 opacity-70 group-hover/delete:hidden " />
-          <AiFillDelete className="hidden text-xl text-red-500 group-hover/delete:block" />
+        {/* delete todo button */}
+        <Button onClick={() => deleteTask(todo.id)}>
+          <DeleteIcon />
         </Button>
       </div>
     </>

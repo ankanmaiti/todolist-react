@@ -1,3 +1,5 @@
+import { twMerge } from "tailwind-merge";
+
 export default function Button({
   children,
   className,
@@ -7,9 +9,9 @@ export default function Button({
   return (
     <>
       <button
-        type="button"
+        type={type}
         onClick={onClick}
-        className={className + " grid w-1/12 place-items-center"}
+        className={twMerge(" grid w-1/12 place-items-center", className)}
       >
         {children}
       </button>
