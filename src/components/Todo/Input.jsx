@@ -1,5 +1,5 @@
 import Button from "./Button";
-import { useTodos } from "/src/context/TaskContextProvider";
+import { useTodos } from "/src/context/TodoProvider";
 import { useRef } from "react";
 import ClipboardIcon from "./Icons/ClipboardIcon";
 import PlusIcon from "./Icons/PlusIcon";
@@ -10,7 +10,6 @@ export default function TodoInput() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(inputRef.current.value);
     addTask(inputRef.current.value);
     inputRef.current.value = "";
   }

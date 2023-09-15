@@ -1,7 +1,7 @@
 import Task from "./components/Todo/Task";
 import Input from "./components/Todo/Input";
 import Header from "./components/Todo/Header";
-import { useTodos } from "./context/TaskContextProvider";
+import { useTodos } from "./context/TodoProvider";
 
 export default function App() {
   const { todos } = useTodos();

@@ -1,5 +1,5 @@
 import Button from "./Button";
-import { useTodos } from "/src/context/TaskContextProvider";
+import { useTodos } from "/src/context/TodoProvider";
 import { twMerge } from "tailwind-merge";
 import TickIcon from "./Icons/TickIcon";
 import DeleteIcon from "./Icons/DeleteIcon";
