@@ -6,15 +6,13 @@ import PlusIcon from "./Icons/PlusIcon";
 
 export default function TodoInput() {
   const inputRef = useRef(null);
-  const { addTask } = useTodos();
+  const { addTodo } = useTodos();
 
   function handleSubmit(e) {
     e.preventDefault();
 
     const newTask = inputRef.current.value;
-    if (newTask?.length < 5) return;
-
-    addTask(newTask);
+    newTask && addTodo(newTask);
     inputRef.current.value = "";
   }
 

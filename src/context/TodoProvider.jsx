@@ -1,30 +1,11 @@
-import { createContext, useContext, useState } from "react";
-import usePendingTodos from "./usePendingTodos";
-import useCompleteTodos from "./useCompleteTodos";
-export const INITIAL_TODOS = [
-  {
-    id: crypto.randomUUID(),
-    task: "study math",
-    isPending: false,
-  },
-  {
-    id: crypto.randomUUID(),
-    task: "study padagogy",
-    isPending: true,
-  },
-  {
-    id: crypto.randomUUID(),
-    task: "watch youtube",
-    isPending: true,
-  },
-  {
-    id: crypto.randomUUID(),
-    task: "watch anime",
-    isPending: true,
-  },
-];
+import { createContext, useContext, useEffect, useState } from "react";
 
-const todosContext = createContext();
+const todosContext = createContext({
+  todos: [],
+  addTodo: (task) => {},
+  toggleTodo: (id) => {},
+  deleteTodo: (id) => {},
+});
 
 export function useTodos() {
   return useContext(todosContext);
@@ -32,40 +13,51 @@ export function useTodos() {
 
 export default function TodoProvider({ children }) {
   const [tabLabel, setTabLabel] = useState("all");
-  const { pendingTodos, addTask, removePendingTask, markAsComplete } =
-    usePendingTodos(INITIAL_TODOS);
-  const { completeTodos, addCompleteTasks, removeCompleteTasks } =
-    useCompleteTodos(INITIAL_TODOS);
+  const [todos, setTodos] = useState(
+    () => JSON.parse(localStorage.getItem("todos")) || [],
+  );
 
-  let todos;
+  let todosToDisplay;
 
   switch (tabLabel) {
     case "todo":
-      todos = pendingTodos;
+      todosToDisplay = todos.filter((todo) => todo.isPending);
       break;
 
     case "done":
-      todos = completeTodos;
+      todosToDisplay = todos.filter((todo) => !todo.isPending);
       break;
 
     default:
-      todos = [...pendingTodos, ...completeTodos];
+      todosToDisplay = todos;
       break;
   }
 
-  function deleteTask(id) {
-    removePendingTask(id);
-    removeCompleteTasks(id);
+  function addTodo(task) {
+    const newTodo = { id: crypto.randomUUID(), task, isPending: true };
+    setTodos((prev) => [...prev, newTodo]);
   }
 
-  function completeTask(id) {
-    const taskOBJ = markAsComplete(id);
-    taskOBJ && addCompleteTasks(taskOBJ);
+  function deleteTodo(id) {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   }
+
+  function toggleTodo(id) {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, isPending: !todo.isPending } : todo,
+      ),
+    );
+  }
+
+  // store todos to localstorage
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <todosContext.Provider
-      value={{ todos, setTabLabel, addTask, deleteTask, completeTask }}
+      value={{ todosToDisplay, setTabLabel, addTodo, deleteTodo, toggleTodo }}
     >
       {children}
     </todosContext.Provider>

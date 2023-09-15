@@ -5,7 +5,7 @@ import TickIcon from "./Icons/TickIcon";
 import DeleteIcon from "./Icons/DeleteIcon";
 
 export default function Task({ todo }) {
-  const { deleteTask, completeTask } = useTodos();
+  const { deleteTodo, toggleTodo } = useTodos();
 
   return (
     <>
@@ -17,7 +17,7 @@ export default function Task({ todo }) {
         )}
       >
         {/* todo check button */}
-        <Button onClick={() => completeTask(todo.id)}>
+        <Button onClick={() => toggleTodo(todo.id)}>
           <TickIcon isPending={todo.isPending} />
         </Button>
 
@@ -32,7 +32,7 @@ export default function Task({ todo }) {
         </p>
 
         {/* delete todo button */}
-        <Button onClick={() => deleteTask(todo.id)}>
+        <Button onClick={() => deleteTodo(todo.id)}>
           <DeleteIcon />
         </Button>
       </div>

@@ -4,7 +4,7 @@ import Header from "./components/Todo/Header";
 import { useTodos } from "./context/TodoProvider";
 
 export default function App() {
-  const { todos } = useTodos();
+  const { todosToDisplay } = useTodos();
 
   return (
     <>
@@ -22,7 +22,7 @@ export default function App() {
             <Header />
 
             <ul>
-              {todos.map((todo) => (
+              {todosToDisplay.map((todo) => (
                 <li key={todo.id}>
                   <Task todo={todo} />
                 </li>
