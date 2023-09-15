@@ -60,7 +60,6 @@ export default function TodoProvider({ children }) {
 
   function completeTask(id) {
     const taskOBJ = markAsComplete(id);
-    console.log(taskOBJ);
     taskOBJ && addCompleteTasks(taskOBJ);
   }
 

@@ -10,7 +10,11 @@ export default function TodoInput() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    addTask(inputRef.current.value);
+
+    const newTask = inputRef.current.value;
+    if (newTask?.length < 5) return;
+
+    addTask(newTask);
     inputRef.current.value = "";
   }
 

@@ -1,11 +1,12 @@
 import React from "react";
+import { useTodos } from "/src/context/TodoProvider";
 
 export default function Tab({
   tabLabel,
   name = "tab",
-  onChange = () => {},
   defaultChecked = false,
 }) {
+  const { setTabLabel } = useTodos();
   return (
     <div>
       <input
@@ -14,9 +15,9 @@ export default function Tab({
         id={tabLabel}
         className="peer appearance-none"
         onClick={(e) => e.currentTarget.checked}
-        onChange={(e) => onChange(e.target.value)}
-        defaultChecked={defaultChecked}
+        onChange={(e) => setTabLabel(e.target.value.toLowerCase())}
         value={tabLabel}
+        defaultChecked={defaultChecked}
       />
       <label
         htmlFor={tabLabel}

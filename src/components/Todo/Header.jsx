@@ -1,4 +1,5 @@
 import TodosIcon from "./Icons/TodosIcon";
+import Tab from "./Tab";
 
 export default function Header() {
   return (
@@ -8,10 +9,14 @@ export default function Header() {
           <TodosIcon className="text-2xl" />
         </div>
         <ul className="flex w-11/12 justify-end gap-1 px-3 text-slate-500">
-          <li className="grid place-items-center rounded px-2">Todo</li>
-          <li className="grid place-items-center rounded px-2">Done</li>
-          <li className="grid place-items-center rounded bg-indigo-400 px-2 text-white">
-            All
+          <li>
+            <Tab tabLabel="TODO" />
+          </li>
+          <li>
+            <Tab tabLabel="DONE" />
+          </li>
+          <li>
+            <Tab tabLabel="ALL" defaultChecked />
           </li>
         </ul>
       </div>
