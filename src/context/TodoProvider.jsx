@@ -5,6 +5,7 @@ const todosContext = createContext({
   addTodo: (task) => {},
   toggleTodo: (id) => {},
   deleteTodo: (id) => {},
+  editTodo: (id, editedTask) => {},
 });
 
 export function useTodos() {
@@ -50,6 +51,14 @@ export default function TodoProvider({ children }) {
     );
   }
 
+  function editTodo(id, editedTask) {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, task: editedTask } : todo,
+      ),
+    );
+  }
+
   // store todos to localstorage
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -57,7 +66,14 @@ export default function TodoProvider({ children }) {
 
   return (
     <todosContext.Provider
-      value={{ todosToDisplay, setTabLabel, addTodo, deleteTodo, toggleTodo }}
+      value={{
+        todosToDisplay,
+        setTabLabel,
+        addTodo,
+        deleteTodo,
+        toggleTodo,
+        editTodo,
+      }}
     >
       {children}
     </todosContext.Provider>
